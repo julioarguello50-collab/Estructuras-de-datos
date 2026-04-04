@@ -1,5 +1,5 @@
-#ifndef LISTA_ESPERA_H
-#define LISTA_ESPERA_H
+#ifndef Consultorios_H
+#define Consultorios_H
 #include<stdio.h>
 #include<stdlib.h>
 #include"estructuras.h"

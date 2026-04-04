@@ -2,8 +2,10 @@
 #include<stdlib.h>
 #include"registros.h"
 #include"estructuras.h"
+#include"Consultorios.h"
 #include"lista_espera.h"
 #include"Reportes.h"
+#include"Demanda_Servicios.h"
 /*Equipo 2 Yin Yang
 Julio Cesar Arguello Palomeque
 Juan Jesus Magaña Palomeque
@@ -17,7 +19,7 @@ int main(){
     //estos contadores son de las estructuras
     int num_V = 0,num_P = 0, num_PA = 0, num_EC = 0,encontrado;
     //
-    int max = 0,min = 999,m,pos_servicio = 0,No_lista;
+    int No_lista;
     //Declaracion de las variables de las estructuras
     FichaVacunacion *frente_V = NULL, *ultimo_V =NULL, *nuevo_V= NULL,*historial_V = NULL,*temp = NULL;
     FichaControlPrenatal *frente_P =NULL, *ultimo_P =NULL, *nuevo_P =  NULL,*historial_P = NULL,*temp_P = NULL;
@@ -133,11 +135,11 @@ int main(){
                     Historial_Arterial(&nuevoPA,&frentePA,&temp_PA,&historial_PA,&No_lista,&encontrado);
                     //
                     Historial_EnferCronica(&nuevoEC,&frenteEC,&temp_EC,&historial_EC,&No_lista,&encontrado);
-                printf("\n\nConsulta de Vacunacion: %d pacientes atendidos\nConsultas De Control Prenatal: %d pacientes atendidos",pacientes_Vacunacion,pacientes_Prenatal);
-                printf("\nConsultas de Presion arterial: %d pacientes atendidos\nConsultas de Enfermades Cronicas: %d pacientes atendidos\n\n",paciente_Arterial,paciente_Cronicos);
+                    printf("\n\nConsulta de Vacunacion: %d pacientes atendidos\nConsultas De Control Prenatal: %d pacientes atendidos",pacientes_Vacunacion,pacientes_Prenatal);
+                    printf("\nConsultas de Presion arterial: %d pacientes atendidos\nConsultas de Enfermades Cronicas: %d pacientes atendidos\n\n",paciente_Arterial,paciente_Cronicos);
                 }
                 system("pause");
-                    system("cls");
+                system("cls");
                 break;
                 case 2: 
                 if(num_V == 0 && num_P == 0 && num_EC == 0 && num_PA == 0){
@@ -199,32 +201,8 @@ int main(){
                 if(pacientes_Vacunacion == 0 && paciente_Arterial == 0 && pacientes_Prenatal == 0 && paciente_Cronicos == 0){
                     printf("\n\nNo hay pacientes registrados\n\n");
                 }else{
-                    char tipos[4][40] = {"Vacunacion","Control Prenatal","Presion Arterial","Enfermedades Cronicas"};
-                    int array[4] = {pacientes_Vacunacion,pacientes_Prenatal,paciente_Arterial,paciente_Cronicos};
-                    max = array[0];
-                    for(m = 0; m<4;m++){
-                        if(array[m] > max){
-                            max = array[m];
-                            pos_servicio = m;
-                        }
-                        if(array[m] < min){
-                            min = array[m];
-                            pos_servicio = m;
-                        }
-                    }
-                    printf("\n\n");
-                    for(m = 0 ; m < 4; m++){
-                        if(max == array[m]){
-                            printf("El servicio con mayor demanda es %s con %d pacientes\n",tipos[m],array[m]);
-                        }
-                    }
-
-                    for(m = 0; m<4;m++){
-                        if(min == array[m]){
-                            printf("El servicio con menor demanda es %s con %d pacientes\n",tipos[m],array[m]);
-                        }
-                    }
-                    printf("\n\n");
+                    Mayor_Demanda(&pacientes_Vacunacion,&pacientes_Prenatal,&paciente_Arterial,&paciente_Cronicos);
+                    Menor_Demanda(&pacientes_Vacunacion,&pacientes_Prenatal,&paciente_Arterial,&paciente_Cronicos);
                 }
                 break;
                 case 4: printf("Redirigiendo al menu\n");break;
