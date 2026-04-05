@@ -38,6 +38,7 @@ int main(){
                 printf("Que tipo de consulta sera?\n1 - Vacunacion\n2 - Control Prenatal\n3 - Presion arterial\n4 - Enfermadades cronicas\n5 - Salir");
                 printf("\nDigite una opcion\n");
                 scanf("%d",&opc);
+                getchar();
                 switch(opc){
                     case 1:
                         nuevo_V = (struct FichaVacunacion *) malloc(sizeof(struct FichaVacunacion));
@@ -55,65 +56,76 @@ int main(){
                         nuevoEC = (struct FichaEnferCronica*) malloc(sizeof(struct FichaEnferCronica));
                         registrarPaciente_Cronico(&nuevoEC,&frenteEC,&ultimoEC,&num_EC,&paciente_Cronicos);
                     break;
+                    case 5: printf("Regresando al menu\n");
                 }
             }while(opc != 5);
             break;
             case 2:
-            printf("\n\nGestion de consultas\n");
-            printf("A que tipo de consulta ira el paciente?\n");
-            printf("1 - Vacunacion\n2 - Control Prenatal\n3 - Presion arterial\n4 -Enfermades cronicas\nDigite la opcion: ");
-            scanf("%d",&opc);
-            switch(opc){
-                case 1:
-                do{
-                        if(frente_V == NULL){
+            do{
+                printf("\n\nGestion de consultas\n");
+                printf("A que tipo de consulta ira el paciente?\n");
+                printf("1 - Vacunacion\n2 - Control Prenatal\n3 - Presion arterial\n4 -Enfermades cronicas\n5 - cancelar/salir\nDigite la opcion: ");
+                scanf("%d",&opc);
+                switch(opc){
+                    case 1:
+                    do{
+                            if(frente_V == NULL){
+                                printf("\n\nNo hay pacientes en la lista de espera\n\n");
+                                break;
+                            }else{
+                                Consulta_Vacunacion(&frente_V,&historial_V,&num_V);
+                                printf("Quieres pasar a otro paciente?\n1 - si\n2 - no\n");
+                                scanf("%d",&resp);
+                            }
+                        
+                        }while(resp != 2 || frente_V == NULL);
+                        system("pause");
+                        system("cls");
+                    break;
+                    case 2:
+                    do{
+                        if(frente_P == NULL){
                             printf("\n\nNo hay pacientes en la lista de espera\n\n");
                             break;
                         }else{
-                            Consulta_Vacunacion(&frente_V,&historial_V,&num_V);
-                            printf("Quieres pasar a otro paciente?\n1 - si\n2 - no\n");
-                            scanf("%d",&resp);
+                                Consulta_Prenatal(&frente_P,&historial_P,&temp_P,&num_P);
+                                printf("Quieres pasar a otro paciente?\n1 - si\n2 - no\n");
+                                scanf("%d",&resp);
                         }
-                    
-                    }while(resp != 2 || frente_V == NULL);
-                break;
-                case 2:
-                do{
-                    if(frente_P == NULL){
-                        printf("\n\nNo hay pacientes en la lista de espera\n\n");
-                        break;
-                    }else{
-                            Consulta_Prenatal(&frente_P,&historial_P,&temp_P,&num_P);
-                            printf("Quieres pasar a otro paciente?\n1 - si\n2 - no\n");
-                            scanf("%d",&resp);
-                    }
-                }while(resp != 2 || frente_P == NULL);
-                break;
-                case 3:
-                do{
-                    if(frentePA == NULL){
-                        printf("\n\nNo hay pacientes en la lista de espera\n\n");
-                        break;
-                    }else{
-                    Consulta_PreArterial(&frentePA,&historial_PA,&temp_PA,&num_PA);
-                    printf("Quieres pasar otro paciente?\n1 - si\n2 - no\n");
-                    scanf("%d",&resp);
-                    }
-                }while(resp != 2 || frentePA == NULL);
-                break;
-                case 4:
-                do{
-                if(frenteEC == NULL){
-                        printf("\n\nNo hay pacientes en la lista de espera\n\n");
-                        break;
-                    }else{
-                            Consulta_EnferCronica(&frenteEC,&historial_EC,&temp_EC,&num_EC);
-                            printf("Quieres pasar a otro paciente?\n1 - si\n2 - no\n");
-                            scanf("%d",&resp);
-                    }
-                }while(resp != 2 || frenteEC == NULL);
-                break;
-            }
+                    }while(resp != 2 || frente_P == NULL);
+                    system("pause");
+                    system("cls");
+                    break;
+                    case 3:
+                    do{
+                        if(frentePA == NULL){
+                            printf("\n\nNo hay pacientes en la lista de espera\n\n");
+                            break;
+                        }else{
+                        Consulta_PreArterial(&frentePA,&historial_PA,&temp_PA,&num_PA);
+                        printf("Quieres pasar otro paciente?\n1 - si\n2 - no\n");
+                        scanf("%d",&resp);
+                        }
+                    }while(resp != 2 || frentePA == NULL);
+                    system("pause");
+                    system("cls");
+                    break;
+                    case 4:
+                    do{
+                    if(frenteEC == NULL){
+                            printf("\n\nNo hay pacientes en la lista de espera\n\n");
+                            break;
+                        }else{
+                                Consulta_EnferCronica(&frenteEC,&historial_EC,&temp_EC,&num_EC);
+                                printf("Quieres pasar a otro paciente?\n1 - si\n2 - no\n");
+                                scanf("%d",&resp);
+                        }
+                    }while(resp != 2 || frenteEC == NULL);
+                    system("pause");
+                    system("cls");
+                    break;
+                }
+            }while(opc != 5);
             break;
             case 3:
             printf("\n\nReportes de consulta\n");
@@ -154,10 +166,7 @@ int main(){
                             printf("\n\nNo hay pacientes en lista de espera\n\n");
                         }else{
                             printf("\n\n");
-                            for(nuevo_V = frente_V; nuevo_V != NULL; nuevo_V = nuevo_V -> sig){
-                                printf("Nombre completo: %s %s\n",nuevo_V -> nombre, nuevo_V -> apellidos);
-                                printf("Numero de ficha %d\n\n",nuevo_V -> no_Ficha);
-                            }
+                            LISTA_ESPERA_VACUNACION(&nuevo_V,&frente_V);
                         }
                         break;
                         case 2:
@@ -165,10 +174,7 @@ int main(){
                             printf("\n\nNo hay pacientes en lista de espera\n\n");
                         }else{
                             printf("\n\n");
-                            for(nuevo_P = frente_P; nuevo_P != NULL; nuevo_P = nuevo_P -> sig){
-                                printf("Nombre completo: %s %s\n",nuevo_P -> nombre, nuevo_P -> apellidos);
-                                printf("Numero de ficha: %d\n\n",nuevo_P -> no_Ficha);
-                            }
+                            LISTA_ESPERA_PRENATAL(&nuevo_P,&frente_P);
                         }
                         break;
                         case 3:
@@ -176,10 +182,7 @@ int main(){
                             printf("\n\nNo hay pacientes en lista de espera\n\n");
                         }else{
                             printf("\n\n");
-                            for(nuevoPA = frentePA; nuevoPA != NULL; nuevoPA = nuevoPA -> sig){
-                                printf("Nombre completo: %s %s\n",nuevoPA -> nombre,nuevoPA -> apellidos);
-                                printf("Numero de fichas: %d\n\n",nuevoPA -> no_Ficha);
-                            }
+                            LISTA_ESPERA_PREARTERIAL(&nuevoPA,&frentePA);
                         }
                         break;
                         case 4:
@@ -187,10 +190,7 @@ int main(){
                             printf("\n\nNo hay pacientes en lista de espera\n\n");
                         }else{
                             printf("\n\n");
-                            for(nuevoEC = frenteEC; nuevoEC != NULL; nuevoEC = nuevoEC -> sig){
-                                printf("Nombre completo: %s %s\n",nuevoEC -> nombre,nuevoEC -> apellidos);
-                                printf("Numero de fichas: %d\n\n",nuevoEC -> no_Ficha);
-                            }
+                            LISTA_ESPERA_CRONICOS(&nuevoEC,&frenteEC);
                         }
                         break;
                         case 5: printf("Regresando el menu\n");break;
@@ -215,4 +215,3 @@ int main(){
     }while(opc != 6);
     return 0;
 }
-

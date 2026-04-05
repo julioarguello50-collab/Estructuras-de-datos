@@ -9,9 +9,13 @@ void registrarPacienteVacunacion(FichaVacunacion **nuevo, FichaVacunacion **fren
     (*num_v)++;
     (*pacientes_Vacunacion)++;
     printf("\nDigite el nombre del paciente\n");
-    scanf("%s",(*nuevo) -> nombre );
+    fgets((*nuevo) -> nombre,50,stdin );
+    (*nuevo) -> nombre[strcspn((*nuevo) -> nombre, "\n")] = '\0';
     printf("\nDigite los apellidos del paciente\n");
-    scanf("%s",(*nuevo) -> apellidos);
+    fgets((*nuevo) -> apellidos,50,stdin);
+    (*nuevo) -> apellidos[strcspn((*nuevo) -> apellidos, "\n")] = '\0';
+
+    
     (*nuevo) -> no_Ficha = (*num_v);
     if(*frente == NULL){
         *frente = *nuevo;
@@ -21,8 +25,9 @@ void registrarPacienteVacunacion(FichaVacunacion **nuevo, FichaVacunacion **fren
     (*nuevo) -> sig = NULL;
     *ultimo = *nuevo;
                 
-    printf("\n\nVacunacion\nNombre completo: %s %s\n",(*nuevo) -> nombre,(*nuevo) -> apellidos);
-    printf("Numero de ficha: %d\n\n",(*nuevo) -> no_Ficha);
+    printf("\n\nVacunacion\nNombre completo:\n%s %s",(*nuevo) -> nombre,(*nuevo) -> apellidos);
+    printf("\nNumero de ficha: %d\n\n",(*nuevo) -> no_Ficha);
+
 }
 
 //Funcion para registrar pacientes del tipo de control prenatal
@@ -30,9 +35,11 @@ void registrarPacienteConPrenatal(FichaControlPrenatal **nuevo_P, FichaControlPr
     (*num_P)++;
     (*pacientes_Prenatal)++;
     printf("\nDigite el nombre del paciente\n");
-    scanf("%s",(*nuevo_P) -> nombre);
+    fgets((*nuevo_P) -> nombre,50,stdin);
+    (*nuevo_P) -> nombre[strcspn((*nuevo_P) -> nombre, "\n")] = '\0';
     printf("\nDigite los apellidos del paciente\n");
-    scanf("%s",(*nuevo_P) -> apellidos);
+    fgets((*nuevo_P) -> apellidos,50,stdin);
+    (*nuevo_P) -> apellidos[strcspn((*nuevo_P) -> apellidos, "\n")] = '\0';
     (*nuevo_P) -> no_Ficha = (*num_P);
     if(*frente_P == NULL){
         *frente_P = *nuevo_P;
@@ -51,9 +58,11 @@ void registrarPaciente_PresionAr(FichaPresionArterial **nuevoPA,FichaPresionArte
     (*num_PA)++;
     (*pacientes_Arterial)++;
     printf("\nDigite el nombre del paciente\n");
-    scanf("%s",(*nuevoPA) -> nombre);
+    fgets((*nuevoPA) -> nombre,50,stdin);
+    (*nuevoPA) -> nombre[strcspn((*nuevoPA) -> nombre, "\n")] = '\0';
     printf("\nDigite los apellidos del paciente\n");
-    scanf("%s",(*nuevoPA) -> apellidos);
+    fgets((*nuevoPA) -> apellidos,50,stdin);
+    (*nuevoPA) -> apellidos[strcspn((*nuevoPA) -> apellidos, "\n")] = '\0';
     (*nuevoPA) -> no_Ficha = (*num_PA);
     if(*frentePA == NULL){
         *frentePA = *nuevoPA;
@@ -72,9 +81,11 @@ void registrarPaciente_Cronico(FichaEnferCronica **nuevoEC,FichaEnferCronica **f
     (*num_EC)++;
     (*pacientes_Cronicos)++;
     printf("\nDigite el nombre del paciente\n");
-    scanf("%s",(*nuevoEC) -> nombre);
+    fgets((*nuevoEC) -> nombre,50,stdin);
+    (*nuevoEC) -> nombre[strcspn((*nuevoEC) -> nombre, "\n")] = '\0';
     printf("\nDigite los apellidos del paciente\n");
-    scanf("%s",(*nuevoEC) -> apellidos);
+    fgets((*nuevoEC) -> apellidos,50,stdin);
+    (*nuevoEC) -> apellidos[strcspn((*nuevoEC) -> apellidos, "\n")] = '\0';
     (*nuevoEC) -> no_Ficha = (*num_EC);
     if(*frenteEC == NULL){
         *frenteEC = *nuevoEC;
