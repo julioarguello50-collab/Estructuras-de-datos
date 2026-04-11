@@ -4,6 +4,7 @@
 
 typedef struct FichaVacunacion{
     int no_Ficha;
+    int atendido;
     char nombre[50];
     char apellidos[50];
     struct FichaVacunacion *sig;
@@ -11,6 +12,7 @@ typedef struct FichaVacunacion{
 
 typedef struct FichaControlPrenatal{
     int no_Ficha;
+    int atendido;
     char nombre[50];
     char apellidos[50];
     struct FichaControlPrenatal *sig;
@@ -18,6 +20,7 @@ typedef struct FichaControlPrenatal{
 
 typedef struct FichaPresionArterial{
     int no_Ficha;
+    int atendido;
     char nombre[50];
     char apellidos[50];
     struct FichaPresionArterial *sig;
@@ -25,6 +28,7 @@ typedef struct FichaPresionArterial{
 
 typedef struct FichaEnferCronica{
     int no_Ficha;
+    int atendido;
     char nombre[50];
     char apellidos[50];
     struct FichaEnferCronica *sig;
