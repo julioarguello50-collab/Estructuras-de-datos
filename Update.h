@@ -13,12 +13,16 @@
 
 //funcion pop para guardar el tipo de ficha y el numero de ficha
 
-void menuAccionVacunacion(PacienteBase **final,FichaVacunacion **nuevo_V,FichaVacunacion **frente_V,FichaVacunacion **ultimo_V,int *num_V){
+void menuAccionVacunacion(incidencia **historial_incidencia,PacienteBase **final,FichaVacunacion **nuevo_V,FichaVacunacion **frente_V,FichaVacunacion **ultimo_V,int *num_V,int *paciente_Vacunacion){
     (*nuevo_V) = (struct FichaVacunacion*) malloc(sizeof(struct FichaVacunacion));
+    (*num_V)++;
+    (*paciente_Vacunacion)++;
     strcpy((*nuevo_V) -> nombre,(*final) -> nombre);
     strcpy((*nuevo_V) -> apellidos,(*final) -> apellidos);
     (*nuevo_V) -> edad = (*final) -> edad;
     (*nuevo_V) -> no_Ficha = *num_V;
+    (*historial_incidencia) ->nuevo_Consultorio = 1;
+
 
     if(*frente_V == NULL){
         *frente_V = *nuevo_V;
@@ -30,12 +34,15 @@ void menuAccionVacunacion(PacienteBase **final,FichaVacunacion **nuevo_V,FichaVa
     printf("El paciente fue transferido al consultorio de Vacunacion\n");
 }
 
-void menuAccionPrenatal(PacienteBase **final,FichaControlPrenatal **nuevo_P,FichaControlPrenatal **frente_P,FichaControlPrenatal **ultimo_P,int *num_P){
+void menuAccionPrenatal(incidencia **historial_incidencia,PacienteBase **final,FichaControlPrenatal **nuevo_P,FichaControlPrenatal **frente_P,FichaControlPrenatal **ultimo_P,int *num_P,int *paciente_Prenatal){
     (*nuevo_P) = malloc(sizeof(struct FichaControlPrenatal));
+    (*num_P)++;
+    (*paciente_Prenatal)++;
     strcpy((*nuevo_P)->nombre, (*final)->nombre);
     strcpy((*nuevo_P)->apellidos, (*final)->apellidos);
     (*nuevo_P)->edad = (*final)->edad;
         (*nuevo_P)->no_Ficha = *num_P;
+        (*historial_incidencia) ->nuevo_Consultorio = 2;
         if(*frente_P == NULL){
             *frente_P = *nuevo_P;
         } else {
@@ -46,12 +53,15 @@ void menuAccionPrenatal(PacienteBase **final,FichaControlPrenatal **nuevo_P,Fich
         printf("El paciente fue transferido al consultorio de control prenatal\n");
 }
 
-void menuAccionPresionArterial(PacienteBase **final,FichaPresionArterial **nuevoPA,FichaPresionArterial **frentePA,FichaPresionArterial **ultimoPA,int *num_PA){
+void menuAccionPresionArterial(incidencia **historial_incidencia,PacienteBase **final,FichaPresionArterial **nuevoPA,FichaPresionArterial **frentePA,FichaPresionArterial **ultimoPA,int *num_PA,int *paciente_Arterial){
     (*nuevoPA) = (struct FichaPresionArterial *) malloc(sizeof(struct FichaPresionArterial));
+    (*num_PA)++;
+    (*paciente_Arterial)++;
     strcpy((*nuevoPA) -> nombre,(*final) -> nombre);
     strcpy((*nuevoPA) -> apellidos,(*final) -> apellidos);
     (*nuevoPA) -> edad = (*final) -> edad;
     (*nuevoPA) -> no_Ficha = *num_PA;
+    (*historial_incidencia) ->nuevo_Consultorio = 3;
     if(*frentePA == NULL){
         *frentePA = *nuevoPA;
     }else{
@@ -62,12 +72,15 @@ void menuAccionPresionArterial(PacienteBase **final,FichaPresionArterial **nuevo
     printf("El paciente fue transferido al consultorio de Presion arterial\n");
 }
 
-void menuAccionEnferCronica(PacienteBase **final,FichaEnferCronica **nuevoEC,FichaEnferCronica **frenteEC,FichaEnferCronica **ultimoEC,int *num_EC){
+void menuAccionEnferCronica(incidencia **historial_incidencia,PacienteBase **final,FichaEnferCronica **nuevoEC,FichaEnferCronica **frenteEC,FichaEnferCronica **ultimoEC,int *num_EC,int *paciente_Cronicos){
     (*nuevoEC) = (struct FichaEnferCronica *) malloc(sizeof(struct FichaEnferCronica));
+    (*num_EC)++;
+    (*paciente_Cronicos)++;
     strcpy((*nuevoEC) -> nombre,(*final) -> nombre);
     strcpy((*nuevoEC) -> apellidos,(*final) -> apellidos);
     (*nuevoEC) -> edad = (*final) -> edad;
     (*nuevoEC) -> no_Ficha = *num_EC;
+    (*historial_incidencia) ->nuevo_Consultorio = 4;
     if(*frenteEC == NULL){
         *frenteEC = (*nuevoEC);
     }else{
@@ -78,8 +91,10 @@ void menuAccionEnferCronica(PacienteBase **final,FichaEnferCronica **nuevoEC,Fic
     printf("El paciente fue transferido al consultorio de enfermedades cronicas\n");
 }
 
-void menuAccionOtroServicio(PacienteBase **final,OtroServicios **nuevoOS,OtroServicios **frenteOS,OtroServicios **ultimoOS,int *num_OS){
+void menuAccionOtroServicio(incidencia **historial_incidencia,PacienteBase **final,OtroServicios **nuevoOS,OtroServicios **frenteOS,OtroServicios **ultimoOS,int *num_OS,int *paciente_OtroServicio){
     (*nuevoOS) = (struct OtroServicios *) malloc(sizeof(struct OtroServicios));
+    (*num_OS)++;
+    (*paciente_OtroServicio)++;
     strcpy((*nuevoOS) -> nombre,(*final) -> nombre);
     strcpy((*nuevoOS) -> apellidos,(*final) -> apellidos);
     printf("Describa brevemente los sintomas del paciente: \n");
@@ -87,6 +102,7 @@ void menuAccionOtroServicio(PacienteBase **final,OtroServicios **nuevoOS,OtroSer
     (*nuevoOS) -> sintomas[strcspn((*nuevoOS) -> sintomas,"\n")] = '\0';
     (*nuevoOS) -> edad = (*final) -> edad;
     (*nuevoOS) -> no_Ficha = *num_OS;
+    (*historial_incidencia) ->nuevo_Consultorio = 5;
     
     if(*frenteOS == NULL){
         *frenteOS = (*nuevoOS);
@@ -247,7 +263,7 @@ void eliminarConsultorioAnterior(PacienteBase **tempBa,FichaVacunacion **nuevo_V
     }else if((*tempBa) -> consultorioAnterior == 2){
         free(*nuevo_P);
     }else if((*tempBa) -> consultorioAnterior == 3){
-        free(*nuevoPA);
+        free(*nuevoPA); 
     }else if((*tempBa) -> consultorioAnterior == 4){
         free(*nuevoEC);
     }else if((*tempBa) -> consultorioAnterior == 5){

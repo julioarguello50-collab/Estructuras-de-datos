@@ -8,6 +8,9 @@
 #include"Demanda_Servicios.h"
 #include"Update.h"
 #include"Restablecimiento.h"
+#include"Alta_Incidencias.h"
+#include"Incidencia_Datos.h"
+#include"Incidencia_Consultorio.h"
 /*Equipo 2 Yin Yang
 Julio Cesar Arguello Palomeque
 Juan Jesus Magaña Palomeque
@@ -19,7 +22,7 @@ int main(){
     //estos contadores son para los reportes
     int opc = 0,pacientes_Vacunacion = 0,pacientes_Prenatal = 0,paciente_Arterial =0,paciente_Cronicos=0,paciente_OtroServicio = 0,resp,opc1;
     //estos contadores son de las estructuras
-    int num_V = 0,num_P = 0, num_PA = 0, num_EC = 0,num_OS = 0,encontrado,No_lista,opcion;
+    int num_V = 0,num_P = 0, num_PA = 0, num_EC = 0,num_OS = 0,encontrado,No_lista,opcion,numero_ficha,contador_incidencias = 0;
     //
     //Declaracion de las variables de las estructuras
     FichaVacunacion *frente_V = NULL, *ultimo_V =NULL, *nuevo_V= NULL,*historial_V = NULL,*temp = NULL,*historial_ultimoV = NULL;
@@ -28,11 +31,12 @@ int main(){
     FichaEnferCronica *frenteEC =NULL, *ultimoEC =NULL, *nuevoEC =  NULL,*historial_EC = NULL,*temp_EC = NULL,*historial_ultimoEC = NULL;
     OtroServicios *frenteOS = NULL, *ultimoOS = NULL,*nuevoOS = NULL,*historial_OS = NULL,*temp_OS = NULL,*historial_ultimoOS = NULL;
     PacienteBase *inicio = NULL,*nuevoBase = NULL,*final = NULL,*tempBa = NULL;
+    incidencia *nuevo_Incidencia = NULL, *historial_incidencia = NULL,*temp_incidencia = NULL,*inicio_incidencia = NULL;
     
     do{
         opc = 0;
         printf("\n\nAdministracion de fichas\nConsulta Preventiva\n");
-        printf("1 - Generar ficha\n2 - Pasar paciente a consulta\n3 - Reportes de consulta\n4 - Correcion de ultima hora\n5 - Salir\n");
+        printf("1 - Generar ficha\n2 - Pasar paciente a consulta\n3 - Reportes de consulta\n4 - Cambio de consultorio\n5 - Incidencias\n6 - salir\n");
         printf("Digite una opcion\n");
         scanf("%d",&opcion);
         switch(opcion){
@@ -84,7 +88,7 @@ int main(){
                                 printf("\n\nNo hay pacientes en la lista de espera\n\n");
                                 resp = 2;
                             }else{
-                                Consulta_Vacunacion(&nuevoBase,&inicio,&final,&tempBa,&frente_V,&historial_V,&temp,&historial_ultimoV);
+                                Consulta_Vacunacion(&nuevoBase,&inicio,&final,&tempBa,&frente_V,&historial_V,&temp,&historial_ultimoV,&nuevo_Incidencia,&historial_incidencia);
                                 printf("Quieres pasar a otro paciente?\n1 - si\n2 - no\n");
                                 scanf("%d",&resp);
                             }
@@ -97,7 +101,7 @@ int main(){
                             printf("\n\nNo hay pacientes en la lista de espera\n\n");
                             resp = 2;
                         }else{
-                                Consulta_Prenatal(&nuevoBase,&inicio,&final,&tempBa,&frente_P,&historial_P,&temp_P,&historial_ultimoP);
+                                Consulta_ControlPrenatal(&nuevoBase,&inicio,&final,&tempBa,&frente_P,&historial_P,&temp_P,&historial_ultimoP,&nuevo_Incidencia,&historial_incidencia);
                                 printf("Quieres pasar a otro paciente?\n1 - si\n2 - no\n");
                                 scanf("%d",&resp);
                         }
@@ -110,7 +114,7 @@ int main(){
                             printf("\n\nNo hay pacientes en la lista de espera\n\n");
                             resp = 2;
                         }else{
-                        Consulta_PreArterial(&nuevoBase,&inicio,&final,&tempBa,&frentePA,&historial_PA,&temp_PA,&historial_ultimoPA);
+                        Consulta_PresionArterial(&nuevoBase,&inicio,&final,&tempBa,&frentePA,&historial_PA,&temp_PA,&historial_ultimoPA,&nuevo_Incidencia,&historial_incidencia);
                         printf("Quieres pasar otro paciente?\n1 - si\n2 - no\n");
                         scanf("%d",&resp);
                         }
@@ -123,7 +127,7 @@ int main(){
                             printf("\n\nNo hay pacientes en la lista de espera\n\n");
                             resp = 2;
                         }else{
-                                Consulta_EnferCronica(&nuevoBase,&inicio,&final,&tempBa,&frenteEC,&historial_EC,&temp_EC,&historial_ultimoEC);
+                                Consulta_EnferCronica(&nuevoBase,&inicio,&final,&tempBa,&frenteEC,&historial_EC,&temp_EC,&historial_ultimoEC,&nuevo_Incidencia,&historial_incidencia);
                                 printf("Quieres pasar a otro paciente?\n1 - si\n2 - no\n");
                                 scanf("%d",&resp);
                         }
@@ -135,7 +139,7 @@ int main(){
                             printf("\n\nNo hay pacientes en la lista de espera\n\n");
                             resp = 2;
                         }else{
-                            Consulto_OtroServicio(&nuevoBase,&inicio,&final,&tempBa,&frenteOS,&historial_OS,&temp_OS,&historial_ultimoOS);
+                            Consulta_OtrosServicios(&nuevoBase,&inicio,&final,&tempBa,&frenteOS,&historial_OS,&temp_OS,&historial_ultimoOS,&nuevo_Incidencia,&historial_incidencia);
                             printf("Quieres pasar a otro paciente?\n1 - si\n2 - no\n");
                             scanf("%d",&resp);
                         }
@@ -160,7 +164,6 @@ int main(){
                         printf("\n\nNo hay pacientes de ningun tipo por antender\n\n");
                     }else{
                         printf("\n");
-                        printf("Consultas de Vacunacion\n");
 
                         Historial_Vacunacion(&temp,&historial_V,&No_lista,&encontrado);
                         //
@@ -171,10 +174,13 @@ int main(){
                         Historial_EnferCronica(&temp_EC,&historial_EC,&No_lista,&encontrado);
                         //
                         Historial_OtroServicio(&temp_OS,&historial_OS,&No_lista,&encontrado);
+                        //
+                        Historial_Incidencias(&temp_incidencia,&historial_incidencia,&contador_incidencias);
                         
                         printf("\n\nConsulta de Vacunacion: %d pacientes atendidos\nConsultas De Control Prenatal: %d pacientes atendidos",pacientes_Vacunacion,pacientes_Prenatal);
                         printf("\nConsultas de Presion arterial: %d pacientes atendidos\nConsultas de Enfermades Cronicas: %d pacientes atendidos\n",paciente_Arterial,paciente_Cronicos);
-                        printf("Consultas de otros servicios: %d pacientes atendidos\n\n",paciente_OtroServicio);
+                        printf("Consultas de otros servicios: %d pacientes atendidos\n",paciente_OtroServicio);
+                        printf("Incidencias: %d pacientes con incidencias\n\n",contador_incidencias);
                         
                     }
                     break;
@@ -248,100 +254,201 @@ int main(){
             printf("\n\n");
             break;
             case 4:
-            printf("Pacientes en lista de movimiento\n");
-            for((*nuevoBase) = (*final); nuevoBase != NULL;nuevoBase = nuevoBase -> sig){
-                printf("\nConsultorio de procedencia: %d\nNombre completo: %s %s\nEdad: %d\n",nuevoBase ->consultorioAnterior,nuevoBase -> nombre, nuevoBase -> apellidos,nuevoBase -> edad);
-            }
-            printf("\n");
-            printf("\nCambio de consultorio de ultima hora\nA que consultorio sera transeferido el paciente?\n");
-            printf("1 - Consultorio de vacunacion\n2 - Control Prenatal\n3 - Presion Arterial\n4 - Enfermedades cronicas\n5 - Otros Servicios\n6 - Salir/cancelar\nDigite una opcion\n");
-            scanf("%d",&resp);
-            getchar();
-            switch(resp){
-                case 1:
-                do{
-                    printf("Confirma que el cambio de la ficha es correcto?\n1 - si\n2 - no\n");
-                    scanf("%d",&opc);
-                }while(opc != 1 && opc != 2);
-                if(opc == 1){
-                    menuAccionVacunacion(&final,&nuevo_V,&frente_V,&ultimo_V,&num_V);
-                    eliminarConsultorioAnterior(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
-                    reduccionContadores(&tempBa,&num_V,&num_P,&num_PA,&num_EC,&num_OS,&pacientes_Vacunacion,&pacientes_Prenatal,&paciente_Arterial,&paciente_Cronicos,&paciente_OtroServicio);
-                }else if(opc == 2){
-                    restablecerPaciente(&inicio,&tempBa,&nuevo_V,&frente_V,&ultimo_V,&num_V,&nuevo_P,&frente_P,&ultimo_P,&num_P,
-                                        &nuevoPA,&frentePA,&ultimoPA,&num_PA,&nuevoEC,&frenteEC,&ultimoEC,&num_EC,&nuevoOS,&frenteOS,&ultimoOS,&num_OS);
-                    limpiarConsultorio(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
+                printf("Pacientes en lista de movimiento\n");
+                for((*nuevoBase) = (*final); nuevoBase != NULL;nuevoBase = nuevoBase -> sig){
+                    printf("\nConsultorio de procedencia: %d\nNombre completo: %s %s\nEdad: %d\n",nuevoBase ->consultorioAnterior,nuevoBase -> nombre, nuevoBase -> apellidos,nuevoBase -> edad);
                 }
-                break;
-                case 2:
                 do{
-                    printf("Confirma que el cambio de la ficha es correcto?\n1 - si\n2 - no\n");
-                    scanf("%d",&opc);
-                }while(opc != 1 && opc != 2);
-                if(opc == 1){
-                    menuAccionPrenatal(&final,&nuevo_P,&frente_P,&ultimo_P,&num_P);
-                    eliminarConsultorioAnterior(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
-                    reduccionContadores(&tempBa,&num_V,&num_P,&num_PA,&num_EC,&num_OS,&pacientes_Vacunacion,&pacientes_Prenatal,&paciente_Arterial,&paciente_Cronicos,&paciente_OtroServicio);
-                }else if(opc == 2){
-                    restablecerPaciente(&inicio,&tempBa,&nuevo_V,&frente_V,&ultimo_V,&num_V,&nuevo_P,&frente_P,&ultimo_P,&num_P,
-                                        &nuevoPA,&frentePA,&ultimoPA,&num_PA,&nuevoEC,&frenteEC,&ultimoEC,&num_EC,&nuevoOS,&frenteOS,&ultimoOS,&num_OS);
-                    limpiarConsultorio(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
-                }
-                break;
-                case 3:
-                do{
-                    printf("Confirma que el cambio de la ficha es correcto?\n1 - si\n2 - no\n");
-                    scanf("%d",&opc);
-                }while(opc != 1 && opc != 2);
-                if(opc == 1){
-                    menuAccionPresionArterial(&final,&nuevoPA,&frentePA,&ultimoPA,&num_PA);
-                    eliminarConsultorioAnterior(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
-                    reduccionContadores(&tempBa,&num_V,&num_P,&num_PA,&num_EC,&num_OS,&pacientes_Vacunacion,&pacientes_Prenatal,&paciente_Arterial,&paciente_Cronicos,&paciente_OtroServicio);
-                }else if(opc == 2){
-                    restablecerPaciente(&inicio,&tempBa,&nuevo_V,&frente_V,&ultimo_V,&num_V,&nuevo_P,&frente_P,&ultimo_P,&num_P,
-                                        &nuevoPA,&frentePA,&ultimoPA,&num_PA,&nuevoEC,&frenteEC,&ultimoEC,&num_EC,&nuevoOS,&frenteOS,&ultimoOS,&num_OS);
-                    limpiarConsultorio(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
-                }
-                break;
-                case 4: 
-                do{
-                    printf("Confirma que el cambio de la ficha es correcto?\n1 - si\n2 - no\n");
-                    scanf("%d",&opc);
-                }while(opc != 1 && opc != 2);
-                if(opc == 1){
-                    menuAccionEnferCronica(&final,&nuevoEC,&frenteEC,&ultimoEC,&num_EC);
-                    eliminarConsultorioAnterior(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
-                    reduccionContadores(&tempBa,&num_V,&num_P,&num_PA,&num_EC,&num_OS,&pacientes_Vacunacion,&pacientes_Prenatal,&paciente_Arterial,&paciente_Cronicos,&paciente_OtroServicio);
-                }else if(opc == 2){
-                    restablecerPaciente(&inicio,&tempBa,&nuevo_V,&frente_V,&ultimo_V,&num_V,&nuevo_P,&frente_P,&ultimo_P,&num_P,
-                                        &nuevoPA,&frentePA,&ultimoPA,&num_PA,&nuevoEC,&frenteEC,&ultimoEC,&num_EC,&nuevoOS,&frenteOS,&ultimoOS,&num_OS);
-                    limpiarConsultorio(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
-                }
-                break;
-                case 5:
-                do{
-                    printf("Confirma  que el cambio de la ficha es correcto?\n1 -si \n2 -no\n");
-                    scanf("%d",&opc);
-                }while(opc != 1 && opc != 2);
-                if(opc == 1){
-                    menuAccionOtroServicio(&final,&nuevoOS,&frenteOS,&ultimoOS,&num_OS);
-                    eliminarConsultorioAnterior(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
-                    reduccionContadores(&tempBa,&num_V,&num_P,&num_PA,&num_EC,&num_OS,&pacientes_Vacunacion,&pacientes_Prenatal,&paciente_Arterial,&paciente_Cronicos,&paciente_OtroServicio);
-                }else if(opc == 2){
-                    restablecerPaciente(&inicio,&tempBa,&nuevo_V,&frente_V,&ultimo_V,&num_V,&nuevo_P,&frente_P,&ultimo_P,&num_P,
-                                        &nuevoPA,&frentePA,&ultimoPA,&num_PA,&nuevoEC,&frenteEC,&ultimoEC,&num_EC,&nuevoOS,&frenteOS,&ultimoOS,&num_OS);
-                    limpiarConsultorio(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
-                }
-                break;
-                case 6: printf("Regresando al menu principal\n");break;
-                default: printf("Opcion no valida\n");break;
-            }
-            
+                    do{
+                        printf("\n");
+                        printf("\nCambio de consultorio de ultima hora\nA que consultorio sera transeferido el paciente?\n");
+                        printf("1 - Consultorio de vacunacion\n2 - Control Prenatal\n3 - Presion Arterial\n4 - Enfermedades cronicas\n5 - Otros Servicios\n6 - Salir/cancelar\nDigite una opcion\n");
+                        scanf("%d",&resp);
+                        if(final -> consultorioAnterior == resp){
+                            printf("No se puede trasladar al mismo consultorio\n");
+                        }
+                    }while(final -> consultorioAnterior == resp);
+                    getchar();
+                
+                    switch(resp){
+                        case 1:
+                            do{
+                                printf("Confirma que el cambio de la ficha es correcto?\n1 - si\n2 - no\n");
+                                scanf("%d",&opc);
+                            }while(opc != 1 && opc != 2);
+                            if(opc == 1){
+                                tempBa = final;
+                                menuAccionVacunacion(&historial_incidencia,&final,&nuevo_V,&frente_V,&ultimo_V,&num_V,&pacientes_Vacunacion);
+                                eliminarConsultorioAnterior(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
+                                reduccionContadores(&tempBa,&num_V,&num_P,&num_PA,&num_EC,&num_OS,&pacientes_Vacunacion,&pacientes_Prenatal,&paciente_Arterial,&paciente_Cronicos,&paciente_OtroServicio);
+                            }else if(opc == 2){
+                                restablecerPaciente(&inicio,&tempBa,&nuevo_V,&frente_V,&ultimo_V,&num_V,&nuevo_P,&frente_P,&ultimo_P,&num_P,
+                                                    &nuevoPA,&frentePA,&ultimoPA,&num_PA,&nuevoEC,&frenteEC,&ultimoEC,&num_EC,&nuevoOS,&frenteOS,&ultimoOS,&num_OS);
+                                limpiarConsultorio(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
+                            }
+                        break;
+                        case 2:
+                            do{
+                                printf("Confirma que el cambio de la ficha es correcto?\n1 - si\n2 - no\n");
+                                scanf("%d",&opc);
+                            }while(opc != 1 && opc != 2);
+                            if(opc == 1){
+                                tempBa = final;
+                                menuAccionPrenatal(&historial_incidencia,&final,&nuevo_P,&frente_P,&ultimo_P,&num_P,&pacientes_Prenatal);
+                                eliminarConsultorioAnterior(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
+                                reduccionContadores(&tempBa,&num_V,&num_P,&num_PA,&num_EC,&num_OS,&pacientes_Vacunacion,&pacientes_Prenatal,&paciente_Arterial,&paciente_Cronicos,&paciente_OtroServicio);
+                            }else if(opc == 2){
+                                restablecerPaciente(&inicio,&tempBa,&nuevo_V,&frente_V,&ultimo_V,&num_V,&nuevo_P,&frente_P,&ultimo_P,&num_P,
+                                                    &nuevoPA,&frentePA,&ultimoPA,&num_PA,&nuevoEC,&frenteEC,&ultimoEC,&num_EC,&nuevoOS,&frenteOS,&ultimoOS,&num_OS);
+                                limpiarConsultorio(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
+                            }
+                        break;
+                        case 3:
+                            do{
+                                printf("Confirma que el cambio de la ficha es correcto?\n1 - si\n2 - no\n");
+                                scanf("%d",&opc);
+                            }while(opc != 1 && opc != 2);
+                            if(opc == 1){
+                                tempBa = final;
+                                menuAccionPresionArterial(&historial_incidencia,&final,&nuevoPA,&frentePA,&ultimoPA,&num_PA,&paciente_Arterial);
+                                eliminarConsultorioAnterior(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
+                                reduccionContadores(&tempBa,&num_V,&num_P,&num_PA,&num_EC,&num_OS,&pacientes_Vacunacion,&pacientes_Prenatal,&paciente_Arterial,&paciente_Cronicos,&paciente_OtroServicio);
+                            }else if(opc == 2){
+                                restablecerPaciente(&inicio,&tempBa,&nuevo_V,&frente_V,&ultimo_V,&num_V,&nuevo_P,&frente_P,&ultimo_P,&num_P,
+                                                    &nuevoPA,&frentePA,&ultimoPA,&num_PA,&nuevoEC,&frenteEC,&ultimoEC,&num_EC,&nuevoOS,&frenteOS,&ultimoOS,&num_OS);
+                                limpiarConsultorio(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
+                            }
+                        break;
+                        case 4: 
+                            do{
+                                printf("Confirma que el cambio de la ficha es correcto?\n1 - si\n2 - no\n");
+                                scanf("%d",&opc);
+                            }while(opc != 1 && opc != 2);
+                            if(opc == 1){
+                                tempBa = final;
+                                menuAccionEnferCronica(&historial_incidencia,&final,&nuevoEC,&frenteEC,&ultimoEC,&num_EC,&paciente_Cronicos);
+                                eliminarConsultorioAnterior(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
+                                reduccionContadores(&tempBa,&num_V,&num_P,&num_PA,&num_EC,&num_OS,&pacientes_Vacunacion,&pacientes_Prenatal,&paciente_Arterial,&paciente_Cronicos,&paciente_OtroServicio);
+                            }else if(opc == 2){
+                                restablecerPaciente(&inicio,&tempBa,&nuevo_V,&frente_V,&ultimo_V,&num_V,&nuevo_P,&frente_P,&ultimo_P,&num_P,
+                                                    &nuevoPA,&frentePA,&ultimoPA,&num_PA,&nuevoEC,&frenteEC,&ultimoEC,&num_EC,&nuevoOS,&frenteOS,&ultimoOS,&num_OS);
+                                limpiarConsultorio(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
+                            }
+                        break;
+                        case 5:
+                            do{
+                                printf("Confirma  que el cambio de la ficha es correcto?\n1 -si \n2 -no\n");
+                                scanf("%d",&opc);
+                            }while(opc != 1 && opc != 2);
+                            if(opc == 1){
+                                tempBa = final;
+                                menuAccionOtroServicio(&historial_incidencia,&final,&nuevoOS,&frenteOS,&ultimoOS,&num_OS,&paciente_OtroServicio);
+                                eliminarConsultorioAnterior(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
+                                reduccionContadores(&tempBa,&num_V,&num_P,&num_PA,&num_EC,&num_OS,&pacientes_Vacunacion,&pacientes_Prenatal,&paciente_Arterial,&paciente_Cronicos,&paciente_OtroServicio);
+                            }else if(opc == 2){
+                                restablecerPaciente(&inicio,&tempBa,&nuevo_V,&frente_V,&ultimo_V,&num_V,&nuevo_P,&frente_P,&ultimo_P,&num_P,
+                                                    &nuevoPA,&frentePA,&ultimoPA,&num_PA,&nuevoEC,&frenteEC,&ultimoEC,&num_EC,&nuevoOS,&frenteOS,&ultimoOS,&num_OS);
+                                limpiarConsultorio(&tempBa,&nuevo_V,&nuevo_P,&nuevoPA,&nuevoEC,&nuevoOS);
+                            }
+                        break;
+                        case 6: printf("Regresando al menu principal\n");break;
+                        default: printf("Opcion no valida\n");break;
+                    }
+                }while(resp != 6);
             break;
-            case 5: printf("Saliendo del programa\n"); break;
+            case 5:
+            do{
+                printf("1 - Dar de alta incidencia\n2 - Corregir incidencia\n3 - Reportes de incidencias\n4 - salir/cancelar\nDigite la opcion: ");
+                scanf("%d",&opc1);
+
+                switch(opc1){
+                    case 1:
+                        nuevo_Incidencia = (struct incidencia *) malloc(sizeof(struct incidencia));
+
+                        printf("1 - Datos de la ficha erroneos\n2 - Cambio de consultorio\nDigite una opcion: ");
+                        scanf("%d",&nuevo_Incidencia->tipoModificacion);
+
+                        printf("De que consultorio es la ficha\n");
+                        printf("1 - Vacunacion\n2 - Control Prenatal\n3 - Presion arterial\n4 - Enfermedades cronicas\n5 - Otros servicios\n");
+                        printf("Digite una opcion: ");
+                        scanf("%d",&opc);
+                        switch(opc){
+                            case 1:
+                                Alta_incidenciaVacunacion(&nuevo_Incidencia,&inicio_incidencia,&nuevo_V,&frente_V,&encontrado,&numero_ficha);
+                            break;
+                            case 2:
+                                Alta_incidenciaControlPrenatal(&nuevo_Incidencia,&inicio_incidencia,&nuevo_P,&frente_P,&encontrado,&numero_ficha);
+                            break;
+                            case 3:
+                                Alta_incidenciaPresionArterial(&nuevo_Incidencia,&inicio_incidencia,&nuevoPA,&frentePA,&encontrado,&numero_ficha);
+                            break;
+                            case 4:
+                                Alta_incidenciaEnferCronica(&nuevo_Incidencia,&inicio_incidencia,&nuevoEC,&frenteEC,&encontrado,&numero_ficha);
+                            break;
+                            case 5:
+                                Alta_incidenciaOtrosServicios(&nuevo_Incidencia,&inicio_incidencia,&nuevoOS,&frenteOS,&encontrado,&numero_ficha);
+                            break;
+                            default: printf("Opcion no valida\n");break;
+                        }
+                    break;
+                    case 2:
+                        if(inicio_incidencia != NULL && inicio_incidencia->tipoModificacion == 1){
+                            printf("Incidencias pendientes:\n");
+                            for(temp_incidencia = inicio_incidencia;temp_incidencia != NULL;temp_incidencia = temp_incidencia->sig){
+                                printf("Tipo de consultorio: %d\n", temp_incidencia->tipoConsultorio);
+                                printf("No. Ficha: %d\n", temp_incidencia->no_Ficha);
+                            }
+                            switch(inicio_incidencia->tipoConsultorio){
+                                case 1:
+                                    Incidencia_Datos_Vacunacion(&inicio_incidencia,&temp_incidencia,&historial_incidencia,&nuevo_V,&frente_V);
+                                break;
+                                case 2:
+                                    Incidencia_Datos_ControlPrenatal(&inicio_incidencia,&temp_incidencia,&historial_incidencia,&nuevo_P,&frente_P);
+                                break;
+                                case 3:
+                                    Incidencia_Datos_PresionArterial(&inicio_incidencia,&temp_incidencia,&historial_incidencia,&nuevoPA,&frentePA);
+                                break;
+                                case 4:
+                                    Incidencia_Datos_EnferCronica(&inicio_incidencia,&temp_incidencia,&historial_incidencia,&nuevoEC,&frenteEC);
+                                break;
+                                case 5:
+                                    Incidencia_Datos_OtrosServicios(&inicio_incidencia,&temp_incidencia,&historial_incidencia,&nuevoOS,&frenteOS);
+                                break;
+                                default: printf("Opcion no valida\n");break;
+                            }
+                        }else if (inicio_incidencia != NULL &&inicio_incidencia -> tipoModificacion == 2){
+                            nuevoBase = (struct PacienteBase *) malloc(sizeof(struct PacienteBase));
+                            switch(inicio_incidencia -> tipoConsultorio){
+                                case 1:
+                                    Incidencia_Consultorio_Anterior_Vacunacion(&nuevo_Incidencia,&inicio_incidencia,&temp_incidencia,&historial_incidencia,&nuevoBase,&inicio,&final,&tempBa,&frente_V);
+                                break;
+                                case 2:
+                                    Incidencia_Consultorio_Anterior_ControlPrenatal(&nuevo_Incidencia,&inicio_incidencia,&temp_incidencia,&historial_incidencia,&nuevoBase,&inicio,&final,&tempBa,&frente_P);
+                                break;
+                                case 3:
+                                    Incidencia_Consultorio_Anterior_PresionArterial(&nuevo_Incidencia,&inicio_incidencia,&temp_incidencia,&historial_incidencia,&nuevoBase,&inicio,&final,&tempBa,&frentePA);
+                                break;
+                                case 4:
+                                    Incidencia_Consultorio_Anterior_EnferCronica(&nuevo_Incidencia,&inicio_incidencia,&temp_incidencia,&historial_incidencia,&nuevoBase,&inicio,&final,&tempBa,&frenteEC);
+                                break;
+                                case 5:
+                                    Incidencia_Consultorio_Anterior_OtrosServicios(&nuevo_Incidencia,&inicio_incidencia,&temp_incidencia,&historial_incidencia,&nuevoBase,&inicio,&final,&tempBa,&frenteOS);
+                                break;
+                                default: printf("Opcion no valida\n");break;
+                            }
+                        }
+                    break;
+                    case 3:
+                        Historial_Incidencias(&temp_incidencia,&historial_incidencia,&contador_incidencias);
+                    break;
+                    case 4: printf("Regresando al menu principal\n");break;
+                    default:printf("Opcion no valida\n");break;
+                }
+            }while(opc1 != 4);
+            break;
+            case 6: printf("Saliendo del programa\n");break;
             default: printf("Opcion no valida\n");break;
         }
     }while(opcion != 6);
     return 0;
 }
-/*solucionar el problema del caso 3*/

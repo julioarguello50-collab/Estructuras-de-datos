@@ -246,7 +246,7 @@ void registrarOtroServicio(OtroServicios **nuevoOS,OtroServicios **frenteOS,Otro
 
         printf("\n\nOtroServicio\nNombre completo: %s %s\n",(*nuevoOS) -> nombre,(*nuevoOS) -> apellidos);
         printf("Edad: %d\n",(*nuevoOS) -> edad);
-        printf("Descripcion breve del problema: %s\n",(*nuevoOS) -> sintomas);
+        printf("Descripicon breve de que sera la consulta %s\n",(*nuevoOS) -> sintomas);
         printf("Numero de ficha: %d\n\n",(*nuevoOS) -> no_Ficha);
 
         printf("Confirma que el registro es correcto?\n1 - si/2 - NO\n");

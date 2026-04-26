@@ -119,4 +119,33 @@ void Historial_OtroServicio(OtroServicios **temp_OS,OtroServicios **historial_OS
     }
     printf("\n\n");
 }
+
+void Historial_Incidencias(incidencia **temp_incidencia,incidencia **historial_incidencia,int *contador_incidencias){
+    for((*temp_incidencia) = (*historial_incidencia);(*temp_incidencia) != NULL;*temp_incidencia = (*temp_incidencia)->sig){
+        if((*temp_incidencia) -> tipoModificacion == 1){
+        printf("Correcion de datos en incidencia\n");
+        printf("\nFicha original\nTipo de consultorio: %d\n", (*temp_incidencia)->tipoConsultorio);
+        printf("No. Ficha: %d\n", (*temp_incidencia)->no_Ficha);
+        printf("Datos anteriores:\nNombre: %s %s\n",(*temp_incidencia) ->nombre_Anterior,(*temp_incidencia) ->apellidos_anteriores);
+        printf("Edad: %d\n\n",(*temp_incidencia)->edad_Original);
+        printf("\nFicha nueva\nTipo de consultorio: %d\n", (*temp_incidencia)->tipoConsultorio);
+        printf("No. Ficha: %d\n", (*temp_incidencia)->no_Ficha);
+        printf("Ficha corregida:\nNombre: %s %s\n",(*temp_incidencia) ->Nuevo_nombre,(*temp_incidencia) ->nuevos_apellidos);
+        printf("Edad: %d\n",(*temp_incidencia)->edad_nueva);
+        printf("Motivo de la incidencia: %s\n\n",(*temp_incidencia)->modificacion);
+        (*contador_incidencias)++;
+        }else if((*temp_incidencia) -> tipoModificacion == 2){
+            printf("Cambio de consultorio\n");
+            printf("Ficha original\nTipo de consultorio: %d\n",(*temp_incidencia) ->tipoConsultorio);
+            printf("No. Ficha: %d\n",(*temp_incidencia) -> no_Ficha);
+            printf("Nombre: %s %s\n",(*temp_incidencia) -> nombre_Anterior,(*temp_incidencia) -> apellidos_anteriores);
+            printf("Edad: %d\n\n",(*temp_incidencia) -> edad_Original);
+            printf("\nFicha nueva\nTipo de consultorio: %d\n",(*temp_incidencia) -> nuevo_Consultorio);
+            printf("Nombre: %s %s\n",(*temp_incidencia) -> Nuevo_nombre,(*temp_incidencia) ->nuevos_apellidos);
+            printf("Edad: %d\n",(*temp_incidencia) -> edad_nueva);
+            printf("Motivo de la incidencia: %s\n\n",(*temp_incidencia)->modificacion);
+            (*contador_incidencias)++;
+        }
+    }
+}
 #endif

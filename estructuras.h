@@ -61,4 +61,19 @@ typedef struct PacienteBase
     struct PacienteBase *sig;
 }PacienteBase;
 
+typedef struct incidencia{
+    int edad_Original;
+    int edad_nueva;
+    int no_Ficha;
+    int tipoConsultorio;
+    int tipoModificacion;
+    int nuevo_Consultorio;
+    char Nuevo_nombre[50];
+    char nombre_Anterior[50];
+    char nuevos_apellidos[50];
+    char apellidos_anteriores[50];
+    char modificacion[50];
+    struct incidencia *sig;
+}incidencia;
+
 #endif
