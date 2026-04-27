@@ -5,12 +5,12 @@
 #include"estructuras.h"
 
 //funciones para declarar incidencias de los tipos de consultorios
-void Alta_incidenciaVacunacion(incidencia **nuevo_Incidencia,incidencia **inicio_incidencia,FichaVacunacion **nuevo_V,FichaVacunacion **frente_V,int *encontrado,int *numero_ficha){
+void Alta_incidenciaVacunacion(incidencia **nuevo_Incidencia,incidencia **inicio_incidencia,FichaVacunacion **nuevo_V,FichaVacunacion **frente_V,int *encontrado,int *buscar_ficha){
     printf("Digite el numero de la ficha del paciente: ");
-    scanf("%d",&(*numero_ficha));
+    scanf("%d",&(*buscar_ficha));
     *encontrado = 0;
     for((*nuevo_V) = (*frente_V); (*nuevo_V) != NULL; (*nuevo_V) = (*nuevo_V)->sig){
-        if((*nuevo_V)->no_Ficha == *numero_ficha){
+        if((*nuevo_V)->no_Ficha == *buscar_ficha){
             *encontrado = 1;
             (*nuevo_Incidencia)-> no_Ficha = (*nuevo_V)-> no_Ficha;
             (*nuevo_Incidencia)->tipoConsultorio = 1;
@@ -33,12 +33,12 @@ void Alta_incidenciaVacunacion(incidencia **nuevo_Incidencia,incidencia **inicio
     }
 }
 
-void Alta_incidenciaControlPrenatal(incidencia **nuevo_Incidencia, incidencia **inicio_incidencia, FichaControlPrenatal **nuevo_P, FichaControlPrenatal **frente_P, int *encontrado, int *numero_ficha){
+void Alta_incidenciaControlPrenatal(incidencia **nuevo_Incidencia, incidencia **inicio_incidencia, FichaControlPrenatal **nuevo_P, FichaControlPrenatal **frente_P, int *encontrado, int *buscar_ficha){
     printf("Digite el numero de la ficha del paciente: ");
-    scanf("%d", &(*numero_ficha));
+    scanf("%d", &(*buscar_ficha));
     *encontrado = 0;
     for((*nuevo_P) = (*frente_P); (*nuevo_P) != NULL; (*nuevo_P) = (*nuevo_P)->sig){
-        if((*nuevo_P)->no_Ficha == *numero_ficha){
+        if((*nuevo_P)->no_Ficha == *buscar_ficha){
             *encontrado = 1;
             (*nuevo_Incidencia)->no_Ficha = (*nuevo_P)->no_Ficha;
             (*nuevo_Incidencia)->tipoConsultorio = 2;
@@ -61,12 +61,12 @@ void Alta_incidenciaControlPrenatal(incidencia **nuevo_Incidencia, incidencia **
     }
 }
 
-void Alta_incidenciaPresionArterial(incidencia **nuevo_Incidencia, incidencia **inicio_incidencia, FichaPresionArterial **nuevoPA, FichaPresionArterial **frentePA, int *encontrado, int *numero_ficha){
+void Alta_incidenciaPresionArterial(incidencia **nuevo_Incidencia, incidencia **inicio_incidencia, FichaPresionArterial **nuevoPA, FichaPresionArterial **frentePA, int *encontrado, int *buscar_ficha){
     printf("Digite el numero de la ficha del paciente: ");
-    scanf("%d", &(*numero_ficha));
+    scanf("%d", &(*buscar_ficha));
     *encontrado = 0;
     for((*nuevoPA) = (*frentePA); (*nuevoPA) != NULL; (*nuevoPA) = (*nuevoPA)->sig){
-        if((*nuevoPA)->no_Ficha == *numero_ficha){
+        if((*nuevoPA)->no_Ficha == *buscar_ficha){
             *encontrado = 1;
             (*nuevo_Incidencia)->no_Ficha = (*nuevoPA)->no_Ficha;
             (*nuevo_Incidencia)->tipoConsultorio = 3;
@@ -89,12 +89,12 @@ void Alta_incidenciaPresionArterial(incidencia **nuevo_Incidencia, incidencia **
     }
 }
 
-void Alta_incidenciaEnferCronica(incidencia **nuevo_Incidencia, incidencia **inicio_incidencia, FichaEnferCronica **nuevoEC, FichaEnferCronica **frenteEC, int *encontrado, int *numero_ficha){
+void Alta_incidenciaEnferCronica(incidencia **nuevo_Incidencia, incidencia **inicio_incidencia, FichaEnferCronica **nuevoEC, FichaEnferCronica **frenteEC, int *encontrado, int *buscar_ficha){
     printf("Digite el numero de la ficha del paciente: ");
-    scanf("%d", &(*numero_ficha));
+    scanf("%d", &(*buscar_ficha));
     *encontrado = 0;
     for((*nuevoEC) = (*frenteEC); (*nuevoEC) != NULL; (*nuevoEC) = (*nuevoEC)->sig){
-        if((*nuevoEC)->no_Ficha == *numero_ficha){
+        if((*nuevoEC)->no_Ficha == *buscar_ficha){
             *encontrado = 1;
             (*nuevo_Incidencia)->no_Ficha = (*nuevoEC)->no_Ficha;
             (*nuevo_Incidencia)->tipoConsultorio = 4;
@@ -117,12 +117,12 @@ void Alta_incidenciaEnferCronica(incidencia **nuevo_Incidencia, incidencia **ini
     }
 }
 
-void Alta_incidenciaOtrosServicios(incidencia **nuevo_Incidencia, incidencia **inicio_incidencia, OtroServicios **nuevoOS, OtroServicios **frenteOS, int *encontrado, int *numero_ficha){
+void Alta_incidenciaOtrosServicios(incidencia **nuevo_Incidencia, incidencia **inicio_incidencia, OtroServicios **nuevoOS, OtroServicios **frenteOS, int *encontrado, int *buscar_ficha){
     printf("Digite el numero de la ficha del paciente: ");
-    scanf("%d", &(*numero_ficha));
+    scanf("%d", &(*buscar_ficha));
     *encontrado = 0;
     for((*nuevoOS) = (*frenteOS); (*nuevoOS) != NULL; (*nuevoOS) = (*nuevoOS)->sig){
-        if((*nuevoOS)->no_Ficha == *numero_ficha){
+        if((*nuevoOS)->no_Ficha == *buscar_ficha){
             *encontrado = 1;
             (*nuevo_Incidencia)->no_Ficha = (*nuevoOS)->no_Ficha;
             (*nuevo_Incidencia)->tipoConsultorio = 5;
