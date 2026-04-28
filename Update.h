@@ -92,12 +92,13 @@ void menuAccionEnferCronica(incidencia **historial_incidencia,PacienteBase **fin
 }
 
 void menuAccionOtroServicio(incidencia **historial_incidencia,PacienteBase **final,OtroServicios **nuevoOS,OtroServicios **frenteOS,OtroServicios **ultimoOS,int *num_OS,int *paciente_OtroServicio){
+    getchar();
     (*nuevoOS) = (struct OtroServicios *) malloc(sizeof(struct OtroServicios));
     (*num_OS)++;
     (*paciente_OtroServicio)++;
     strcpy((*nuevoOS) -> nombre,(*final) -> nombre);
     strcpy((*nuevoOS) -> apellidos,(*final) -> apellidos);
-    printf("Describa brevemente los sintomas del paciente: \n");
+    printf("Describa brevemente el servicio del paciente: \n");
     fgets((*nuevoOS) -> sintomas,50,stdin);
     (*nuevoOS) -> sintomas[strcspn((*nuevoOS) -> sintomas,"\n")] = '\0';
     (*nuevoOS) -> edad = (*final) -> edad;

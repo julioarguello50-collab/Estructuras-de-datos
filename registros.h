@@ -240,7 +240,7 @@ void registrarOtroServicio(OtroServicios **nuevoOS,OtroServicios **frenteOS,Otro
 
         getchar();
 
-        printf("Describa brevemente lo que le pasa al paciente\n");
+        printf("Describa brevemente el servicio que se le brindara al paciente\n");
         fgets((*nuevoOS) ->sintomas,80,stdin );
         (*nuevoOS) -> sintomas[strcspn((*nuevoOS) -> sintomas, "\n")] = '\0';
 

@@ -104,10 +104,10 @@ void Historial_OtroServicio(OtroServicios **temp_OS,OtroServicios **historial_OS
     (*temp_OS) = *historial_OS;
 
     //Si hay pacientes atendidos entonces los imprime
-    printf("Lista de pacientes para enfermedades cronicas\n");
+    printf("Lista de pacientes para Otros servicios\n");
     for((*temp_OS) = *historial_OS; *temp_OS != NULL; (*temp_OS) = (*temp_OS) -> sig) {
         if((*temp_OS) -> atendido == 1){
-            printf("Paciente no. %d\nNombre: %s %s\nSintomas/causas: %s\nEdad: %d\nNo. Ficha %d (atendido)\n",*No_lista, (*temp_OS)->nombre, (*temp_OS)->apellidos,(*temp_OS) ->sintomas,(*temp_OS) -> edad,(*temp_OS) -> no_Ficha);
+            printf("Paciente no. %d\nNombre: %s %s\nServico brindado: %s\nEdad: %d\nNo. Ficha %d (atendido)\n",*No_lista, (*temp_OS)->nombre, (*temp_OS)->apellidos,(*temp_OS) ->sintomas,(*temp_OS) -> edad,(*temp_OS) -> no_Ficha);
             (*encontrado)++;
             (*No_lista)++;
         }

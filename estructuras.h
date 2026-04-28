@@ -73,6 +73,7 @@ typedef struct incidencia{
     char nuevos_apellidos[50];
     char apellidos_anteriores[50];
     char modificacion[50];
+    char servicicio_brindado[50];//solo en caso de otros servicios
     struct incidencia *sig;
 }incidencia;
 

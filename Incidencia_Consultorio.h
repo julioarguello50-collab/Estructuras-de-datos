@@ -5,6 +5,7 @@
 #include"estructuras.h"
 
 void Incidencia_Consultorio_Anterior_Vacunacion(incidencia **nuevo_Incidencia,incidencia **inicio_incidencia,incidencia **temp_incidencia,incidencia **historial_incidencia,PacienteBase **nuevoBase,PacienteBase **inicio,PacienteBase **final,PacienteBase **tempBa,FichaVacunacion **frente_V){
+    printf("\nCambio de consultorio\n");
     getchar();
     strcpy((*nuevoBase) -> nombre,(*nuevo_Incidencia) -> nombre_Anterior);
     strcpy((*nuevoBase) -> apellidos,(*nuevo_Incidencia) -> apellidos_anteriores);
@@ -44,6 +45,7 @@ void Incidencia_Consultorio_Anterior_Vacunacion(incidencia **nuevo_Incidencia,in
 }
 
 void Incidencia_Consultorio_Anterior_ControlPrenatal(incidencia **nuevo_Incidencia, incidencia **inicio_incidencia, incidencia **temp_incidencia, incidencia **historial_incidencia, PacienteBase **nuevoBase, PacienteBase **inicio, PacienteBase **final, PacienteBase **tempBa,FichaControlPrenatal **frente_P){
+    printf("\nCambio de consultorio\n");
     getchar();
     strcpy((*nuevoBase)->nombre, (*nuevo_Incidencia)->nombre_Anterior);
     strcpy((*nuevoBase)->apellidos, (*nuevo_Incidencia)->apellidos_anteriores);
@@ -82,6 +84,7 @@ void Incidencia_Consultorio_Anterior_ControlPrenatal(incidencia **nuevo_Incidenc
 }
 
 void Incidencia_Consultorio_Anterior_PresionArterial(incidencia **nuevo_Incidencia, incidencia **inicio_incidencia, incidencia **temp_incidencia, incidencia **historial_incidencia, PacienteBase **nuevoBase, PacienteBase **inicio, PacienteBase **final, PacienteBase **tempBa,FichaPresionArterial **frentePA){
+    printf("\nCambio de consultorio\n");
     getchar();
     strcpy((*nuevoBase)->nombre, (*nuevo_Incidencia)->nombre_Anterior);
     strcpy((*nuevoBase)->apellidos, (*nuevo_Incidencia)->apellidos_anteriores);
@@ -120,6 +123,7 @@ void Incidencia_Consultorio_Anterior_PresionArterial(incidencia **nuevo_Incidenc
 }
 
 void Incidencia_Consultorio_Anterior_EnferCronica(incidencia **nuevo_Incidencia, incidencia **inicio_incidencia, incidencia **temp_incidencia, incidencia **historial_incidencia, PacienteBase **nuevoBase, PacienteBase **inicio, PacienteBase **final, PacienteBase **tempBa,FichaEnferCronica **frenteEC){
+    printf("\nCambio de consultorio\n");
     getchar();
     strcpy((*nuevoBase)->nombre, (*nuevo_Incidencia)->nombre_Anterior);
     strcpy((*nuevoBase)->apellidos, (*nuevo_Incidencia)->apellidos_anteriores);
@@ -158,6 +162,7 @@ void Incidencia_Consultorio_Anterior_EnferCronica(incidencia **nuevo_Incidencia,
 }
 
 void Incidencia_Consultorio_Anterior_OtrosServicios(incidencia **nuevo_Incidencia, incidencia **inicio_incidencia, incidencia **temp_incidencia, incidencia **historial_incidencia, PacienteBase **nuevoBase, PacienteBase **inicio, PacienteBase **final, PacienteBase **tempBa,OtroServicios **frenteOS){
+    printf("\nCambio de consultorio\n");
     getchar();
     strcpy((*nuevoBase)->nombre, (*nuevo_Incidencia)->nombre_Anterior);
     strcpy((*nuevoBase)->apellidos, (*nuevo_Incidencia)->apellidos_anteriores);

@@ -239,7 +239,7 @@ int main(){
                                 case 6: printf("Regresando al menu\n");break;
                                 default: printf("Opcion no valida\n");
                             }
-                        }while(opcion_ListaEspera != 5);
+                        }while(opcion_ListaEspera != 6);
                     }
                     break;
                     case 3:
@@ -361,18 +361,18 @@ int main(){
             break;
             case 5:
             do{
-                printf("1 - Dar de alta incidencia\n2 - Corregir incidencia\n3 - Reportes de incidencias\n4 - salir/cancelar\nDigite la opcion: ");
+                printf("\nMenu de incidencias\n1 - Dar de alta incidencia\n2 - Corregir incidencia\n3 - Reportes de incidencias\n4 - salir/cancelar\nDigite la opcion: ");
                 scanf("%d",&opcion_Incidencias);
 
                 switch(opcion_Incidencias){
                     case 1:
                         nuevo_Incidencia = (struct incidencia *) malloc(sizeof(struct incidencia));
 
-                        printf("1 - Datos de la ficha erroneos\n2 - Cambio de consultorio\nDigite una opcion: ");
+                        printf("\nIncidencias\n1 - Datos de la ficha erroneos\n2 - Cambio de consultorio\nDigite una opcion: ");
                         scanf("%d",&nuevo_Incidencia->tipoModificacion);
 
-                        printf("De que consultorio es la ficha\n");
-                        printf("1 - Vacunacion\n2 - Control Prenatal\n3 - Presion arterial\n4 - Enfermedades cronicas\n5 - Otros servicios\n");
+                        printf("\nDe que consultorio es la ficha\n");
+                        printf("\n1 - Vacunacion\n2 - Control Prenatal\n3 - Presion arterial\n4 - Enfermedades cronicas\n5 - Otros servicios\n");
                         printf("Digite una opcion: ");
                         scanf("%d",&opcion_GenerandoFicha);
                         switch(opcion_GenerandoFicha){
@@ -396,7 +396,7 @@ int main(){
                     break;
                     case 2:
                         if(inicio_incidencia != NULL && inicio_incidencia->tipoModificacion == 1){
-                            printf("Incidencias pendientes:\n");
+                            printf("\nIncidencias pendientes:\n");
                             for(temp_incidencia = inicio_incidencia;temp_incidencia != NULL;temp_incidencia = temp_incidencia->sig){
                                 printf("Tipo de consultorio: %d\n", temp_incidencia->tipoConsultorio);
                                 printf("No. Ficha: %d\n", temp_incidencia->no_Ficha);
@@ -448,6 +448,7 @@ int main(){
                     default:printf("Opcion no valida\n");break;
                 }
             }while(opcion_Incidencias != 4);
+            printf("\n\n");
             break;
             case 6: printf("Saliendo del programa\n");break;
             default: printf("Opcion no valida\n");break;

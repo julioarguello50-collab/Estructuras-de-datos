@@ -455,6 +455,7 @@ void Consulta_OtrosServicios(PacienteBase **nuevoBase, PacienteBase **inicio, Pa
     int opc;
     printf("\nFicha: %d\n", (*frenteOS)->no_Ficha);
     printf("Nombre: %s %s\nEdad: %d\n", (*frenteOS)->nombre, (*frenteOS)->apellidos, (*frenteOS)->edad);
+    printf("Servicio dado: %s\n",(*frenteOS) ->sintomas);
     printf("Los datos del paciente son correctos?\n1 - si\n2 - no\n");
     scanf("%d", &opc);
 
@@ -498,8 +499,13 @@ void Consulta_OtrosServicios(PacienteBase **nuevoBase, PacienteBase **inicio, Pa
             printf("Digite la edad del paciente: ");
             scanf("%d", &(*frenteOS)->edad);
 
+            printf("Describa brevemente el servicio que se le brindara al paciente: ");
+            fgets((*frenteOS) -> sintomas,50,stdin);
+            (*frenteOS) -> sintomas[strcspn((*frenteOS) -> sintomas,"\n")] = '\0';
+
             strcpy((*nuevo_Incidencia)->Nuevo_nombre, (*frenteOS)->nombre);
             strcpy((*nuevo_Incidencia)->nuevos_apellidos, (*frenteOS)->apellidos);
+            strcpy((*nuevo_Incidencia) -> servicicio_brindado,(*frenteOS) ->sintomas);
             (*nuevo_Incidencia)->edad_nueva = (*frenteOS)->edad;
 
             getchar();
@@ -527,6 +533,7 @@ void Consulta_OtrosServicios(PacienteBase **nuevoBase, PacienteBase **inicio, Pa
             strcpy((*nuevo_Incidencia)->apellidos_anteriores, (*frenteOS)->apellidos);
             strcpy((*nuevo_Incidencia)->Nuevo_nombre, (*frenteOS)->nombre);
             strcpy((*nuevo_Incidencia)->nuevos_apellidos, (*frenteOS)->apellidos);
+            strcpy((*nuevo_Incidencia) -> servicicio_brindado,(*frenteOS) ->sintomas);
 
             getchar();
             printf("Describa brevemente el motivo del cambio de consultorio: ");
